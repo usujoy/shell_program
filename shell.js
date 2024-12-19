@@ -1,8 +1,8 @@
 const promptMessage = 'shell v2.0 % ';
 let currentDirectory = '~ ';
 
-const cd = function (...args) {
-  currentDirectory = args;
+const cd = function (args) {
+  currentDirectory = args.join();
   return promptMessage + currentDirectory;
 }
 
@@ -20,14 +20,12 @@ const externalCommands = function (command) {
 
 const runCommand = function (commandString) {
   const [command, ...args] = commandString.split(' ');
-  console.log(command);
-  
 
   switch (command) {
     case 'cd':
       return cd(args)
     case 'pwd':
-      console.log(pwd())
+      console.log(pwd());
       return;
     case 'ls':
       return ls();
