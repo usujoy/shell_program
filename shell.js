@@ -1,0 +1,1 @@
+const promptMessage = 'shell v2.0';
