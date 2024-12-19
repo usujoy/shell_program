@@ -1,9 +1,11 @@
-const promptMessage = 'shell v2.0 % ';
-let currentDirectory = '~ ';
+let currentDirectory = '~';
+const shellName = 'shell v2.0 ';
+const symbol = ' % ';
+const listOfFiles = [];
 
 const cd = function (args) {
   currentDirectory = args.join();
-  return promptMessage + currentDirectory;
+  return shellName + currentDirectory + symbol;
 }
 
 const pwd = function () {
@@ -11,11 +13,27 @@ const pwd = function () {
 }
 
 const ls = function () {
+  console.log(listOfFiles.join(' '));
   return;
 }
 
-const externalCommands = function (command) {
-  console.log('shell v2.0 command not found');
+const touch = function  (args) {
+  const newFile = args.join();
+
+  listOfFiles.push(newFile);
+}
+
+const externalCommands = function (commandString) {
+  const [command, ...args] = commandString.split(' ');
+
+  switch (command) {
+    case 'touch': 
+      return touch(args);
+      
+  
+    default:
+      console.log('shell v2.0 command not found');
+  }
 }
 
 const runCommand = function (commandString) {
@@ -30,12 +48,12 @@ const runCommand = function (commandString) {
     case 'ls':
       return ls();
     default:
-      return externalCommands(command);
+      return externalCommands(commandString);
   }
 }
 
 while (true) {
-  const command = prompt(promptMessage + currentDirectory);
+  const command = prompt(shellName + currentDirectory + symbol);
 
   const runningCommand = runCommand(command);
 }
